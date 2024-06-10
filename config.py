@@ -1,7 +1,5 @@
 from aiogram import Bot, Dispatcher, types
-from aiogram.filters.command import Command
 from dotenv import load_dotenv
-from aiogram.types import FSInputFile
 from os import getenv
 
 

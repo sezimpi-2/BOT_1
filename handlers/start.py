@@ -3,7 +3,6 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.filters.command import Command
 from aiogram.types import FSInputFile
 
-
 start_router=Router()
 
 @start_router.message(Command ("start"))
@@ -24,8 +23,11 @@ async def start_handler(message: types.Message):
             ],
             [ 
                 types.InlineKeyboardButton(text="Адрес", url= "https://go.2gis.com/jgqs7 ")
+            ],
+             [ 
+                types.InlineKeyboardButton(text="Отзыв", callback_data= "otzyv")
             ] 
-
+            
 
         ] 
     )
@@ -38,14 +40,19 @@ async def start_handler(message: types.Message):
 @start_router.callback_query(F.data =="about")
 async def about_handler(callback: types.CallbackQuery):
     file_1 = FSInputFile("images_2/about.jpg")
+    await callback.answer() 
     await callback.message.answer_photo(photo=file_1, caption="Ресторан итальянской кухни в винтажном стиле ")
-    await callback.answer() # для того чтобы бот не зависал
-
+    
 
 @start_router.callback_query(F.data=="reply_photo")
 async def reply_photo_handler(callback: types.CallbackQuery):
     file = FSInputFile("images_2/restoran.jpg")
-    await callback.message.reply_photo(photo=file, caption="меню")
     await callback.answer()  
+    await callback.message.reply_photo(photo=file, caption="меню")
 
 
+@start_router.callback_query(F.data =="otzyv")
+async def about_handler(callback: types.CallbackQuery):
+    await callback.answer() 
+    await callback.message.answer("Начните опрос написав комманду /opros")
+    
