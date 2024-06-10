@@ -15,9 +15,10 @@ async def main():
    dp.include_router(start_router)
    dp.include_router(photo_router)
    dp.include_router(info_router)
-   dp.include_router(echo_router)
    dp.include_router(survey_router)
    dp.include_router(shop_router)
+
+   dp.include_router(echo_router)
 
 
 

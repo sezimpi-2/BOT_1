@@ -22,7 +22,7 @@ async def start_survey(message: types.Message, state: FSMContext):
 async def process_name(message: types.Message, state: FSMContext):
     name = message.text
     message.answer(f"Начнем , {name}!")
-    await state.set_state(RestoranSurvey.name)
+    await state.set_state(RestoranSurvey.date)
     await message.answer("Введите дату посещения?")
 
 @survey_router.message(RestoranSurvey.date)
