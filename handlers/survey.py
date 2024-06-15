@@ -2,7 +2,7 @@ from aiogram import Router, F, types
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
-
+from config  import database
 
 survey_router = Router()
 
@@ -63,5 +63,12 @@ async def process_rating(message: types.Message, state: FSMContext):
     purity = message.text
     purity = purity_assessment.index(purity) + 3
     await state.update_data(purity=purity)
-    await message.answer("Спасибо за прохождение опроса😊\nМы будем рады встретить вас в нашем заведении ещё раз!💖")
+    data = await state.get_data()
+    print(data)
+    await database.execute("""
+INSERT INTO surve_results(name, date, instagram, purity) VALUES (?, ?, ?, ?)""" , 
+(data['name'], data ['date'], data['instagram'], data['purity'] ))
     await state.clear()
+    await message.answer("Спасибо за прохождение опроса😊\nМы будем рады встретить вас в нашем заведении ещё раз!💖")
+   
+    
