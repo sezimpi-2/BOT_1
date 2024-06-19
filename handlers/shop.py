@@ -1,5 +1,6 @@
 from aiogram import Router, F, types
 from aiogram.filters.command import Command
+import sqlite3
 
 
 shop_router = Router()
@@ -22,20 +23,16 @@ async def show_shop(message: types.Message):
 
     await message.answer("Выберите блюдо:", reply_markup=kb)
 
+meals = ("пиццы", "напитки", "пасты")
 
-@shop_router.message(F.text == "Пиццы")
-async def show_fantastika(message: types.Message):
+
+@shop_router.message(F.text.lower().in_(meals))
+async def show_caffe(message: types.Message):
     kb = types.ReplyKeyboardRemove()
-    await message.answer("Виды пицц", reply_markup=kb)
-
-
-@shop_router.message(F.text == "Пасты")
-async def show_romantika(message: types.Message):
-    kb = types.ReplyKeyboardRemove()
-    await message.answer("Виды паст", reply_markup=kb)
-
-
-@shop_router.message(F.text == "Напитки")
-async def show_drama(message: types.Message):
-    
-    await message.answer("Виды напитков")
+    meals = message.text # одно из meals
+    connection = sqlite3.connect("db.sqlite")
+    cursor = connection.cursor()
+    query = cursor.execute("SELECT * FROM caffe WHERE meals_id = 1")
+    caffe = query.fetchall()
+    print(caffe)
+    await message.answer("Блюда по выбору: ", reply_markup=kb)
