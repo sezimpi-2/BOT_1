@@ -18,10 +18,20 @@ class Database:
             # здесь может быть создание других таблиц
             # которые нам нужны
             await conn.commit()
-    async def execute(self, query, params: tuple = ()):
+
+
+    async def execute(self, query: str, params: tuple = ()):
         async with aiosqlite.connect(self.path) as conn:
-            await conn.execute(query,params)
+            await conn.execute(query, params)
             await conn.commit()
+
+
+    async def fetch(self, query: str, params: tuple = ()):
+        async with aiosqlite.connect(self.path) as conn:
+            conn.row_factory = aiosqlite.Row
+            data = await conn.execute(query, params)
+            result = await data.fetchall()
+            return [dict(row) for row in result]
 
 
 
