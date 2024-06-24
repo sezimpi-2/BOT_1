@@ -17,7 +17,7 @@ purity TEXT )
             name TEXT
         )
     """
-CREATE_CAFFE_TABLE = """
+    CREATE_CAFFE_TABLE = """
         CREATE TABLE IF NOT EXISTS caffe (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,
@@ -27,13 +27,13 @@ CREATE_CAFFE_TABLE = """
             FOREIGN KEY (meals_id) REFERENCES meals(id)
         ) 
     """
-POPULATE_MEALS = """
+    POPULATE_MEALS = """
         INSERT INTO meals (name)
         VALUES ("Пасты"),
         ("Напитки"),
         ("Пиццы"),
     """
-POPULATE_CAFFE = """
+    POPULATE_CAFFE = """
         INSERT INTO caffe (name, price, image, meals_id)
         VALUES ("Пицца с мексиканским соусом", 200, "images/traditsionnie-bluda-italii.jpg", 1),
         ("Популярное блюдо италии", 2000, "images/7aad.jpg", 3),

@@ -8,6 +8,7 @@ from handlers.photo import photo_router
 from handlers.my_info import info_router
 from handlers.survey import survey_router
 from handlers.shop import shop_router
+from handlers.house_kg import house_router
 
 
 async def on_startup(bot):
@@ -21,6 +22,7 @@ async def main():
        types.BotCommand(command='shop', description='Наши товары'),
        types.BotCommand(command='photo', description='Фото'),
        types.BotCommand(command='opros', description='Оставить отзыв '),
+       types.BotCommand(command='obyavleniya', description='Объявления  '),
       
    ])
 #    регистрируем роутер
@@ -30,6 +32,7 @@ async def main():
    dp.include_router(info_router)
    dp.include_router(survey_router)
    dp.include_router(shop_router)
+   dp.include_router(house_router)
 
    dp.include_router(echo_router)
 
