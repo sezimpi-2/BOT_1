@@ -1,14 +1,10 @@
 import httpx
 from parsel import Selector
 
-# httpx - sync, async
-# requests - sync
-# crawler, scraper, parser
+MAIN_URL = "https://www.house.kg/snyat"
 
-MAIN_URL = "https://www.house.kg/snyat "
 def get_page():
-    response = httpx.get(MAIN_URL, timeout=10)
-    # print("Status code", response.status_code)
+    response = httpx.get(MAIN_URL)
     return response.text
 
 def get_page_title(page):
@@ -18,14 +14,10 @@ def get_page_title(page):
 
 def get_links(page):
     selector = Selector(text=page)
-    links = selector.css("div.list-item a::attr(href)").getall()
-    return list(map(lambda x: "https://www.house.kg/snyat " + x, links))
-
+    links = selector.css("div.listing a::attr(href)").getall()
+    return list(map(lambda x: "https://www.house.kg" + x, links))
 
 if __name__ == "__main__":
     page = get_page()
-    # print(page[:300])
-    # title = get_page_title(page)
-    # print(title)
     links = get_links(page)
     print(links)

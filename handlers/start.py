@@ -1,7 +1,9 @@
+import asyncio
 from aiogram import Router, types, F
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.filters.command import Command
 from aiogram.types import FSInputFile
+from time import sleep
 
 start_router=Router()
 
@@ -41,6 +43,7 @@ async def start_handler(message: types.Message):
 async def about_handler(callback: types.CallbackQuery):
     file_1 = FSInputFile("images_2/about.jpg")
     await callback.answer() 
+    await asyncio.sleep(10)
     await callback.message.answer_photo(photo=file_1, caption="Ресторан итальянской кухни в винтажном стиле ")
     
 
@@ -48,6 +51,7 @@ async def about_handler(callback: types.CallbackQuery):
 async def reply_photo_handler(callback: types.CallbackQuery):
     file = FSInputFile("images_2/restoran.jpg")
     await callback.answer()  
+    await asyncio.sleep(12)
     await callback.message.reply_photo(photo=file, caption="меню")
 
 

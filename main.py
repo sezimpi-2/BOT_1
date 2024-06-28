@@ -8,7 +8,7 @@ from handlers.photo import photo_router
 from handlers.my_info import info_router
 from handlers.survey import survey_router
 from handlers.shop import shop_router
-from handlers.house_kg import house_router
+from handlers.housekg import house_router
 
 
 async def on_startup(bot):
